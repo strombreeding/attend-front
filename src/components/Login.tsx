@@ -31,6 +31,7 @@ export const Login = (props: any) => {
               localStorage.setItem("leader", text);
               localStorage.setItem("code", String(code));
               localStorage.setItem("date", String(Date.now()));
+
               setTest("");
               props.setLogged(true);
               props.setLeaderName(text);

@@ -16,7 +16,7 @@ const fightingMsgArr = [
 const pick = (arr: any) => {
   let c = -1;
   while (c === -1 || c > arr) {
-    c = Math.round(Math.random() * arr - 1);
+    c = Math.round(Math.random() * (arr - 1));
   }
   return c;
 };
@@ -42,10 +42,7 @@ export const Home = (props: any) => {
         };
         const copy = [...msgArr, obj];
         setMsgArr(copy);
-        console.log(copy.length);
-        const gogo = pick(copy.length);
-        console.log(gogo, "ㅋㅋ");
-        console.log(copy[gogo]);
+        let gogo = pick(copy.length);
         const zzz = copy[gogo];
         setFightingMsg(zzz.content);
         setFightingMsgAuthor(zzz.author);

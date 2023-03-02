@@ -36,7 +36,7 @@ export const EumPw = (props: any) => {
           onClick={async () => {
             const pw = window.prompt("새 비번 입력!", `${eumPw}`);
             if (pw) {
-              await axios.post(`${baseUrl}/2eum`, { pw: Number(pw) });
+              await axios.post(`${baseUrl}/etc/2eum`, { pw: Number(pw) });
               setEumPw(Number(pw));
               setPwUpdatedAt(Date.now());
             }
