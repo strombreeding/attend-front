@@ -1,0 +1,48 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hexagon {
+  /* border: 2px solid white; */
+  margin: 10px 0;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  background-color: pink;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+#attendance_post {
+  position: absolute;
+  top: 20%;
+  left: 16%;
+  background-color: #cfe2f3;
+}
+#attendance_get {
+  position: absolute;
+  top: 29%;
+  right: 16%;
+  background-color: #9fc5e8;
+}
+#attendance_newFace {
+  position: absolute;
+  top: 38%;
+  left: 16%;
+  background-color: #6fa8dc;
+}
+#eum_pw {
+  position: absolute;
+  top: 47%;
+  right: 16%;
+  background-color: #c9daf8;
+}
+#fighting {
+  position: absolute;
+  top: 56%;
+  left: 16%;
+  background-color: #a4c2f4;
+}

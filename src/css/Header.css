@@ -1,7 +1,28 @@
-.hidden {
-  display: none;
+.mom_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  position: sticky;
 }
-#trangition {
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.mom_header img {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+}
+.mom_header {
+  border: 1px solid red;
+  /* 애니메이션 */
   animation: fadein 0.3s;
   -moz-animation: fadein 0.3s; /* Firefox */
   -webkit-animation: fadein 0.3s; /* Safari and Chrome */
