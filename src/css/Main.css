@@ -1,4 +1,108 @@
 .main {
-  border: solid 1px blue;
+  /* border: solid 1px blue; */
+  margin: 10px 10px 0 10px;
+}
+
+/* 출석 기록 */
+.attendance_list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.attendance_list div {
+  justify-content: center;
+  text-align: center;
+  width: 250px;
+}
+
+.check {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  bottom: 11%;
+  border: solid rgba(128, 128, 128, 0.418) 1px;
+  background-color: rgb(199, 226, 245);
+}
+#section {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+#hidden {
+  display: none;
+}
+#plus {
+  text-align: center;
+  font-size: large;
+  font-weight: 900;
+  position: sticky;
+  bottom: 11%;
+}
+.btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: sticky;
+  bottom: 0;
+  border: solid rgba(128, 128, 128, 0.418) 1px;
+  background-color: rgb(199, 226, 245);
+}
+.attendance_end {
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  background-color: #0887d1ab;
+}
+.reset {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  background-color: #08316694;
+}
+
+.attend {
+  display: flex;
+  padding: 30px;
+  background-color: #00d26a;
+  border-radius: 50%;
   margin: 10px;
+}
+.pray {
+  display: flex;
+  padding: 30px;
+  background-color: #fcd53f;
+  border-radius: 50%;
+  margin: 10px;
+}
+.not_attend {
+  display: flex;
+  margin: 10px;
+  padding: 30px;
+  background-color: #f8312f;
+  border-radius: 50%;
 }

@@ -5,6 +5,8 @@
   padding: 10px;
   align-items: center;
   position: sticky;
+  top: 0;
+  background-color: #dee7efd5;
 }
 .header {
   display: flex;
@@ -21,12 +23,13 @@
   transform: translate(-50%, -50%);
 }
 .mom_header {
-  border: 1px solid red;
   /* 애니메이션 */
+  border: 0.5px rgba(202, 202, 202, 0.63) solid;
   animation: fadein 0.3s;
   -moz-animation: fadein 0.3s; /* Firefox */
   -webkit-animation: fadein 0.3s; /* Safari and Chrome */
   -o-animation: fadein 0.3s; /* Opera */
+  margin-bottom: 5px;
 }
 
 @keyframes fadein {

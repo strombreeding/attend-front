@@ -1,4 +1,35 @@
+import { arrType } from "../types/types";
 const onDays = [0, 1, 6, 2, 3, 4, 5];
+
+export const makeTime = (currentTime: number) => {
+  const defaultTime = Math.round((Date.now() - currentTime) / 1000);
+  console.log(defaultTime);
+  if (defaultTime < 60) {
+    return Math.round(defaultTime) + "초 전";
+  } else if (defaultTime < 3600) {
+    console.log(defaultTime / 6);
+    return Math.round(defaultTime / 60) + "분 전";
+  } else if (defaultTime < 86400) {
+    return Math.round(defaultTime / (60 * 60)) + "시간 전";
+  } else if (defaultTime < 2592000) {
+    return Math.round(defaultTime / (60 * 60 * 24)) + "일 전";
+  } else if (defaultTime < 31536000) {
+    return Math.round(defaultTime / (60 * 60 * 24 * 30)) + "달 전";
+  } else {
+    return Math.round(defaultTime / (60 * 60 * 24 * 365)) + "년 전";
+  }
+};
+
+export const cutingAttend = (arr: arrType[]) => {
+  const passIcon = ["🔴"];
+  const newArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (!passIcon.includes(arr[i].attend) && arr[i].index !== -1) {
+      newArr.push(arr[i]);
+    }
+  }
+  return newArr;
+};
 
 export const getDate = () => {
   const nowDate = new Date();

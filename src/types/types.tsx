@@ -4,3 +4,8 @@ export type NowDate = {
   month: number;
   date: number;
 };
+
+export type arrType = {
+  index: number;
+  attend: string;
+};
