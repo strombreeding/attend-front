@@ -15,38 +15,51 @@ const fightingMsgArr = [
 ];
 const pick = (arr: any) => {
   let c = -1;
-  while (c < 0 || c > arr.length) {
-    c = Math.round(Math.random() * arr.length - 1);
+  while (c === -1 || c > arr) {
+    c = Math.round(Math.random() * arr - 1);
   }
   return c;
 };
 
 export const Home = (props: any) => {
   // 명언 목록 불러오기
+  const [fightingMsg, setFightingMsg] = useState("");
+  const [fightingMsgAuthor, setFightingMsgAuthor] = useState("");
+  const [fightingMsgLikes, setFightingMsgLikes] = useState(0);
+  const [msgArr, setMsgArr] = useState([
+    { author: "이진희", likes: 0, content: "잘 안되더라도 괜찮아요, 시간은 많아요" },
+  ]);
+  let arrLength = 0;
+  const navigate = useNavigate();
   const getMsgs = async () => {
     try {
       const msgs = await axios.get(`${baseUrl}/fighting`);
-      msgArr.push(msgs.data);
+      const zz = msgs.data.map((msg: any) => {
+        const obj = {
+          content: msg.content,
+          likes: msg.likes,
+          author: msg.author,
+        };
+        const copy = [...msgArr, obj];
+        setMsgArr(copy);
+        console.log(copy.length);
+        const gogo = pick(copy.length);
+        console.log(gogo, "ㅋㅋ");
+        console.log(copy[gogo]);
+        const zzz = copy[gogo];
+        setFightingMsg(zzz.content);
+        setFightingMsgAuthor(zzz.author);
+        setFightingMsgLikes(zzz.likes);
+      });
+      return zz;
     } catch (err) {
       alert(err);
     }
   };
-  const msgArr = fightingMsgArr;
-  // if (msgArr.length <= 1) {
-  //   getMsgs();
-  // }
-  let gogo = pick(msgArr);
-  // while (gogo === Number(localStorage.getItem("pick"))) {
-  //   gogo = pick(msgArr);
-  // }
-  localStorage.setItem("pick", String(gogo));
-  const msg = msgArr[gogo];
-  console.log(msg.content.length);
-  console.log(msg.content.length + msg.author.length);
-  const [fightingMsg, setFightingMsg] = useState(msg.content);
-  const [fightingMsgAuthor, setFightingMsgAuthor] = useState(msg.author);
-  const [fightingMsgLikes, setFightingMsgLikes] = useState(msg.likes);
-  const navigate = useNavigate();
+  const zz = async () => {};
+  useEffect(() => {
+    getMsgs();
+  }, []);
   const onClick = (content: string) => {
     navigate(content);
   };
