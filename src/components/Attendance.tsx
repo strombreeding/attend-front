@@ -15,11 +15,9 @@ export const AttendacePost = (props: any) => {
   const navigate = useNavigate();
   const checkoutAble = () => {
     if (!canDays.includes(new Date().getDay())) {
-      alert("토,일,월요일에만 출석부 기록 가능합니다.");
       navigate("/");
     }
   };
-  checkoutAble();
 
   const [loading, setLoading] = useState(false);
   localStorage.setItem("checkArr", "0");
@@ -66,6 +64,8 @@ export const AttendacePost = (props: any) => {
   };
 
   useEffect(() => {
+    checkoutAble();
+
     get();
   }, []);
 
