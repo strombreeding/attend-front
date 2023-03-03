@@ -9,8 +9,8 @@
   margin: 10px 0;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   display: flex;
   background-color: pink;
   clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
@@ -28,34 +28,72 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
 #attendance_post {
   position: absolute;
-  top: 20%;
-  left: 16%;
+  top: 21%;
+  left: 19%;
   background-color: #a4c2f4;
 }
 #attendance_get {
   text-align: center;
   position: absolute;
-  top: 29%;
-  right: 16%;
+  top: 30%;
+  right: 19%;
   background-color: #9fc5e8;
 }
 #attendance_newFace {
   position: absolute;
-  top: 38%;
-  left: 16%;
+  top: 39%;
+  left: 19%;
   background-color: #bad1f7;
 }
 #eum_pw {
   position: absolute;
-  top: 47%;
-  right: 16%;
+  top: 48%;
+  right: 19%;
   background-color: #55ec87;
 }
 #fighting {
   position: absolute;
-  top: 56%;
-  left: 16%;
+  top: 57%;
+  left: 19%;
   background-color: #c894d5;
+}
+
+.fighting_msg p {
+  margin: 1px 1px;
+}
+@media screen and (max-width: 324px) {
+  #attendance_post {
+    position: absolute;
+    top: 23%;
+    left: 12%;
+    background-color: #a4c2f4;
+  }
+  #attendance_get {
+    text-align: center;
+    position: absolute;
+    top: 32%;
+    right: 12%;
+    background-color: #9fc5e8;
+  }
+  #attendance_newFace {
+    position: absolute;
+    top: 41%;
+    left: 12%;
+    background-color: #bad1f7;
+  }
+  #eum_pw {
+    position: absolute;
+    top: 50%;
+    right: 12%;
+    background-color: #55ec87;
+  }
+  #fighting {
+    position: absolute;
+    top: 59%;
+    left: 12%;
+    background-color: #c894d5;
+  }
 }

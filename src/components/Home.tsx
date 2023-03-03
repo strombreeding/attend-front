@@ -36,6 +36,7 @@ export const Home = (props: any) => {
       const msgs = await axios.get(`${baseUrl}/fighting`);
       const zz = msgs.data.map((msg: any) => {
         const obj = {
+          id: msg.id,
           content: msg.content,
           likes: msg.likes,
           author: msg.author,
@@ -68,15 +69,16 @@ export const Home = (props: any) => {
       <div id="trangition" className="home">
         <div
           className="fighting_msg"
-          onClick={() => {
+          onClick={async () => {
             setFightingMsgLikes(fightingMsgLikes + 1);
+            await axios.patch(`${baseUrl}/fighting/likes`, { fightingMsgLikes });
             // 좋아요 로직
           }}
         >
-          <small>{fightingMsg} </small>
+          <h3>{fightingMsg} </h3>
           <div>
-            <small>ღ{fightingMsgLikes}</small>
-            <small>ㅡ{fightingMsgAuthor}</small>
+            <p>ღ{fightingMsgLikes}</p>
+            <p>{fightingMsgAuthor}</p>
           </div>
         </div>
         <div

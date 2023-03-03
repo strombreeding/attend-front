@@ -2,6 +2,17 @@
   /* border: solid 1px blue; */
   margin: 10px 10px 0 10px;
 }
+#attend_info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#attend_info h2 {
+  margin-top: 5px;
+}
+#attend_info h4 {
+  margin-bottom: 5px;
+}
 
 /* 출석 기록 */
 .attendance_list {
@@ -29,7 +40,7 @@
   align-items: center;
   justify-content: center;
   position: sticky;
-  bottom: 11%;
+  bottom: 73.81px;
   border: solid rgba(128, 128, 128, 0.418) 1px;
   background-color: rgb(199, 226, 245);
 }
@@ -38,7 +49,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
-  padding-bottom: 30px;
+  padding-bottom: 50px;
   padding-top: 30px;
 }
 #hidden {

@@ -1,5 +1,6 @@
 import * as utils from "../utils/utilsFuc";
 import "../css/Home.css";
+import "../css/EumPw.css";
 import { useNavigate } from "react-router-dom";
 import { Header } from "./Header";
 import { useEffect, useState } from "react";
@@ -26,24 +27,24 @@ export const EumPw = (props: any) => {
     <>
       <Header setLogged={props.setLogged} name={props.leaderName} />
       <div id="trangition" className="main">
-        <div className="2eum">
+        <div id="eum_btn">
           <h2>이음 비밀번호</h2>
           <h3>{eumPw}</h3>
-          <p>{utils.makeTime(pwUpdatedAt)}</p>
+          <p>{utils.makeTime(pwUpdatedAt)} 갱신</p>
+          <button
+            className="eum_btn"
+            onClick={async () => {
+              const pw = window.prompt("새 비번 입력!", `${eumPw}`);
+              if (pw) {
+                await axios.post(`${baseUrl}/etc/2eum`, { pw: Number(pw) });
+                setEumPw(Number(pw));
+                setPwUpdatedAt(Date.now());
+              }
+            }}
+          >
+            비번 갱신하기!
+          </button>
         </div>
-        <button
-          className="2eum_btn"
-          onClick={async () => {
-            const pw = window.prompt("새 비번 입력!", `${eumPw}`);
-            if (pw) {
-              await axios.post(`${baseUrl}/etc/2eum`, { pw: Number(pw) });
-              setEumPw(Number(pw));
-              setPwUpdatedAt(Date.now());
-            }
-          }}
-        >
-          비번 갱신하기!
-        </button>
       </div>
     </>
   );

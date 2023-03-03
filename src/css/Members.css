@@ -1,16 +1,19 @@
 #members_div input {
   text-align: center;
-  width: 100px;
-  height: 10px;
+  width: 150px;
+  height: 40px;
   border: 0.1px solid gray;
   padding-top: 5px;
   padding-bottom: 5px;
+  font-size: large;
   margin: 5px 0;
 }
 #members_div button {
+  font-size: large;
   border: 0px;
-  padding: 5px 15px;
+  padding: 15px 25px;
   border-radius: 15px;
+  margin-top: 5px;
 }
 
 #members_div div {
