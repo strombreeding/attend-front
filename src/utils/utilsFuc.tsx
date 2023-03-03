@@ -1,5 +1,5 @@
 import { arrType } from "../types/types";
-const onDays = [0, 1, 6, 2, 3, 4, 5];
+const onDays = [0, 1, 6];
 
 export const makeTime = (currentTime: number) => {
   const defaultTime = Math.round((Date.now() - currentTime) / 1000);

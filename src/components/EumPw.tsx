@@ -39,6 +39,7 @@ export const EumPw = (props: any) => {
                 await axios.post(`${baseUrl}/etc/2eum`, { pw: Number(pw) });
                 setEumPw(Number(pw));
                 setPwUpdatedAt(Date.now());
+                alert("갱신 완료!");
               }
             }}
           >

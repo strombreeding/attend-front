@@ -5,6 +5,7 @@ import { Header } from "./Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../App";
+import { Loading } from "./Loading";
 
 const fightingMsgArr = [
   {
@@ -26,35 +27,39 @@ export const Home = (props: any) => {
   const [fightingMsg, setFightingMsg] = useState("");
   const [fightingMsgAuthor, setFightingMsgAuthor] = useState("");
   const [fightingMsgLikes, setFightingMsgLikes] = useState(0);
-  const [msgArr, setMsgArr] = useState([
-    { author: "이진희", likes: 0, content: "잘 안되더라도 괜찮아요, 시간은 많아요" },
-  ]);
+  const [fightingMsgId, setFightingMsgId] = useState("");
   let arrLength = 0;
   const navigate = useNavigate();
   const getMsgs = async () => {
     try {
       const msgs = await axios.get(`${baseUrl}/fighting`);
-      const zz = msgs.data.map((msg: any) => {
+      const copy: Array<{
+        id: string;
+        content: string;
+        likes: number;
+        author: string;
+      }> = [];
+      msgs.data.map((msg: any) => {
         const obj = {
-          id: msg.id,
+          id: msg._id,
           content: msg.content,
           likes: msg.likes,
           author: msg.author,
         };
-        const copy = [...msgArr, obj];
-        setMsgArr(copy);
-        let gogo = pick(copy.length);
-        const zzz = copy[gogo];
-        setFightingMsg(zzz.content);
-        setFightingMsgAuthor(zzz.author);
-        setFightingMsgLikes(zzz.likes);
+        // setMsgArr(copy);
+        copy.push(obj);
       });
-      return zz;
+      console.log(copy);
+      let gogo = pick(copy.length);
+      const msgInfo = copy[gogo];
+      setFightingMsg(msgInfo.content);
+      setFightingMsgAuthor(msgInfo.author);
+      setFightingMsgLikes(msgInfo.likes);
+      setFightingMsgId(msgInfo.id);
     } catch (err) {
       alert(err);
     }
   };
-  const zz = async () => {};
   useEffect(() => {
     getMsgs();
   }, []);
@@ -68,10 +73,17 @@ export const Home = (props: any) => {
 
       <div id="trangition" className="home">
         <div
+          id={fightingMsgId}
           className="fighting_msg"
-          onClick={async () => {
-            setFightingMsgLikes(fightingMsgLikes + 1);
-            await axios.patch(`${baseUrl}/fighting/likes`, { fightingMsgLikes });
+          onClick={async (e) => {
+            try {
+              const id = e.currentTarget.id;
+              await axios.patch(`${baseUrl}/fighting/likes`, { id, liker: localStorage.getItem("leader") });
+              setFightingMsgLikes(fightingMsgLikes + 1);
+            } catch (err: any) {
+              console.log(err);
+              alert(err.response.data.message);
+            }
             // 좋아요 로직
           }}
         >

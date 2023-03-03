@@ -13,7 +13,12 @@
 #attend_info h4 {
   margin-bottom: 5px;
 }
-
+#attend_info div {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  font-weight: 800;
+}
 /* 출석 기록 */
 .attendance_list {
   display: flex;
@@ -33,7 +38,6 @@
   justify-content: space-between;
   align-items: center;
 }
-
 #article {
   display: flex;
   flex-direction: column;
@@ -97,18 +101,18 @@
 }
 
 .attend {
-  display: flex;
-  padding: 30px;
   background-color: #00d26a;
   border-radius: 50%;
-  margin: 10px;
+  height: 100px;
+  width: 100px;
+  margin: 10px 10px;
 }
 .pray {
-  display: flex;
-  padding: 30px;
   background-color: #fcd53f;
   border-radius: 50%;
-  margin: 10px;
+  height: 100px;
+  width: 100px;
+  margin: 10px 10px;
 }
 .not_attend {
   display: flex;

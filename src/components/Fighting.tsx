@@ -5,8 +5,10 @@ import { Header } from "./Header";
 import { useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../App";
+import { Loading } from "./Loading";
 
 export const Fighting = (props: any) => {
+  const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ export const Fighting = (props: any) => {
   return (
     <>
       <Header setLogged={props.setLogged} name={props.leaderName} />
+      {loading && <Loading />}
       <div id="trangition" className="main">
         <div id="fight_box">
           <h2>응원 메시지를 작성하세요</h2>
@@ -28,9 +31,10 @@ export const Fighting = (props: any) => {
             type="text"
             placeholder="닉네임 입력(최대 10자)"
             onChange={(e) => {
-              setAuthor(`- ${e.target.value}`);
+              setAuthor(`${e.target.value}`);
             }}
             maxLength={10}
+            minLength={2}
           />
           <small>{author.length}/10</small>
           <p>응원 메시지를 입력하세요. (줄바꿈X)</p>
@@ -44,6 +48,7 @@ export const Fighting = (props: any) => {
               setContent(e.target.value);
             }}
             maxLength={45}
+            minLength={3}
           />
           <small>{content.length}/45</small>
           <br />
@@ -55,11 +60,19 @@ export const Fighting = (props: any) => {
               margin: "10px 0",
             }}
             onClick={async () => {
+              setLoading(true);
+              const trangition = document.getElementById("trangition");
+              if (trangition) {
+                trangition.style.opacity = "0.3";
+              }
               try {
-                await axios.post(`${baseUrl}/fighting`, { content, author });
+                await axios.post(`${baseUrl}/fighting`, { content, author: `- ${author}` });
+                setLoading(false);
                 alert("메시지 등록!");
                 navigate("/");
               } catch (err) {
+                if (trangition) trangition.style.opacity = "1";
+
                 alert(err);
               }
             }}
@@ -70,7 +83,7 @@ export const Fighting = (props: any) => {
           <br />
           <h4>아래처럼 나옵니다.</h4>
           <p>{content}</p>
-          <p>{author}</p>
+          <p>- {author}</p>
         </div>
       </div>
     </>

@@ -5,9 +5,11 @@ import { Header } from "./Header";
 import { useState } from "react";
 import { baseUrl } from "../App";
 import axios from "axios";
+import { Loading } from "./Loading";
 
 export const Members = (props: any) => {
   const [newFace, setNewFace] = useState("");
+  const [loading, setLoading] = useState(false);
   const [target, setTarget] = useState("");
   const navigate = useNavigate();
   const onClick = (content: string) => {
@@ -16,6 +18,7 @@ export const Members = (props: any) => {
   return (
     <>
       <Header setLogged={props.setLogged} name={props.leaderName} />
+      {loading && <Loading />}
       <div id="trangition" className="main">
         <div id="members_div">
           <div>
@@ -35,6 +38,11 @@ export const Members = (props: any) => {
                 const confirmText = window.confirm(`${newFace} 님을 가족 구성원에 추가할까요?`);
 
                 if (confirmText) {
+                  setLoading(true);
+                  const trangition = document.getElementById("trangition");
+                  if (trangition) {
+                    trangition.style.opacity = "0.3";
+                  }
                   try {
                     await axios.get(`${baseUrl}/sheetIds`);
                     await axios.post(`${baseUrl}/members`, {
@@ -42,8 +50,14 @@ export const Members = (props: any) => {
                       name: localStorage.getItem("leader"),
                     });
                     setNewFace("");
+
+                    setLoading(false);
+                    if (trangition) trangition.style.opacity = "1";
+
                     alert("추가 완료!");
                   } catch (err) {
+                    if (trangition) trangition.style.opacity = "1";
+
                     alert(err);
                   }
                 }
@@ -68,6 +82,11 @@ export const Members = (props: any) => {
               onClick={async () => {
                 const confirmText = window.confirm(`${target} 님을 가족 구성원에서 제거하시겠습니까?`);
                 if (confirmText) {
+                  setLoading(true);
+                  const trangition = document.getElementById("trangition");
+                  if (trangition) {
+                    trangition.style.opacity = "0.3";
+                  }
                   try {
                     const a = await axios.get(`${baseUrl}/sheetIds`);
                     console.log(a);
@@ -78,8 +97,13 @@ export const Members = (props: any) => {
                       },
                     });
                     setTarget("");
+                    if (trangition) trangition.style.opacity = "1";
+                    setLoading(false);
+
                     alert("삭제 완료!");
                   } catch (err) {
+                    if (trangition) trangition.style.opacity = "1";
+
                     alert(err);
                   }
                 }

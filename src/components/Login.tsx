@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useCookies } from "react-cookie";
 import "../css/Login.css";
 import { NowDate } from "../types/types";
 import * as utils from "../utils/utilsFuc";
@@ -6,7 +7,7 @@ import * as utils from "../utils/utilsFuc";
 export const Login = (props: any) => {
   const [text, setText] = useState("");
   const [test, setTest] = useState("");
-
+  const [cookies, setCookie, removeCookie] = useCookies();
   return (
     <div className="login">
       <div>
@@ -32,7 +33,7 @@ export const Login = (props: any) => {
               localStorage.setItem("leader", text);
               localStorage.setItem("code", String(code));
               localStorage.setItem("date", String(Date.now()));
-
+              console.log("ㅅㅂ?");
               setTest("");
               props.setLogged(true);
               props.setLeaderName(text);
