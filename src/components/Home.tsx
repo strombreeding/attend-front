@@ -75,7 +75,7 @@ export const Home = (props: any) => {
             // 좋아요 로직
           }}
         >
-          <h3>{fightingMsg} </h3>
+          <h4>{fightingMsg} </h4>
           <div>
             <p>ღ{fightingMsgLikes}</p>
             <p>{fightingMsgAuthor}</p>
