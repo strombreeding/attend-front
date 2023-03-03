@@ -10,8 +10,8 @@ export const Login = (props: any) => {
   return (
     <div className="login">
       <div>
-        <h3>온라인 출석부</h3>
-        <small>리더이름 (2음절)</small>
+        <h1>온라인 출석부</h1>
+        <h3>리더이름 (2음절)</h3>
         <input
           type="text"
           id="zz"
@@ -24,6 +24,7 @@ export const Login = (props: any) => {
           value={test}
         />
         <button
+          className="login_btn"
           onClick={() => {
             try {
               const code = utils.getFamilyCode(text);
