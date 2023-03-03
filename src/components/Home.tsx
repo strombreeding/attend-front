@@ -7,13 +7,6 @@ import axios from "axios";
 import { baseUrl } from "../App";
 import { Loading } from "./Loading";
 
-const fightingMsgArr = [
-  {
-    content: "윈터바텀킷을 차지해야해! 그건 우리 가문의 보물이니깐!",
-    author: "보리스 진네만",
-    likes: 0,
-  },
-];
 const pick = (arr: any) => {
   let c = -1;
   while (c === -1 || c > arr) {

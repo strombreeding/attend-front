@@ -83,27 +83,27 @@ export const getNowWeek = () => {
   // }
   return weeksCount;
 };
+export const useFulReaderName = [
+  "지훈",
+  "영은",
+  "수민",
+  "진실",
+  "예은",
+  "수정",
+  "주연",
+  "진희",
+  "재운",
+  "동욱",
+  "혜성",
+  "정현",
+  "현승",
+  "주영",
+  "상현",
+  "예람",
+  "민지",
+  "세은",
+];
 export const getFamilyCode = (name: string) => {
-  const useFulReaderName = [
-    "지훈",
-    "영은",
-    "수민",
-    "진실",
-    "예은",
-    "수정",
-    "주연",
-    "진희",
-    "재운",
-    "동욱",
-    "혜성",
-    "정현",
-    "현승",
-    "주영",
-    "상현",
-    "예람",
-    "민지",
-    "세은",
-  ];
   if (useFulReaderName.includes(name) !== true) throw new Error("리더이름 제대로 입력 부탁함");
   let code = null;
   switch (name) {

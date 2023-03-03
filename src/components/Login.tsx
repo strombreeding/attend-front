@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import "../css/Login.css";
 import { NowDate } from "../types/types";
 import * as utils from "../utils/utilsFuc";
+// import { Select } from "./Select";
 
 export const Login = (props: any) => {
   const [text, setText] = useState("");
@@ -13,17 +14,21 @@ export const Login = (props: any) => {
       <div>
         <h2>온라인 출석부</h2>
         <h3>리더이름 (2음절)</h3>
-        <input
-          type="text"
+
+        <select
+          name=""
           id="zz"
-          placeholder="입력란"
-          autoComplete="off"
           onChange={(e) => {
             setText(e.target.value);
             setTest(e.target.value);
           }}
-          value={test}
-        />
+        >
+          <option value="none">고르세요</option>
+          {utils.useFulReaderName.map((option: string) => {
+            return <option value={option}>{option}</option>;
+          })}
+        </select>
+
         <button
           className="login_btn"
           onClick={() => {
@@ -33,7 +38,6 @@ export const Login = (props: any) => {
               localStorage.setItem("leader", text);
               localStorage.setItem("code", String(code));
               localStorage.setItem("date", String(Date.now()));
-              console.log("ㅅㅂ?");
               setTest("");
               props.setLogged(true);
               props.setLeaderName(text);
