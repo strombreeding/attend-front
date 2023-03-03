@@ -10,7 +10,7 @@ export const Login = (props: any) => {
   return (
     <div className="login">
       <div>
-        <h1>온라인 출석부</h1>
+        <h2>온라인 출석부</h2>
         <h3>리더이름 (2음절)</h3>
         <input
           type="text"
