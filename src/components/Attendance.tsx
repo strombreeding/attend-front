@@ -11,6 +11,14 @@ import * as utils from "../utils/utilsFuc";
 import { Loading } from "./Loading";
 
 export const AttendacePost = (props: any) => {
+  const checkoutAble = () => {
+    if (!canDays.includes(new Date().getDay())) {
+      alert("토,일,월요일에만 출석부 기록 가능합니다.");
+      navigate("/");
+    }
+  };
+  checkoutAble();
+
   const [loading, setLoading] = useState(false);
   localStorage.setItem("checkArr", "0");
   const nowDate = {
@@ -22,12 +30,7 @@ export const AttendacePost = (props: any) => {
   const canDays = [0, 1];
   const navigate = useNavigate();
   // ***** 고쳐야함 유즈이펙트에서 밑에 함수 써야함
-  const checkoutAble = () => {
-    if (!canDays.includes(new Date().getDay())) {
-      alert("토,일,월요일에만 출석부 기록 가능합니다.");
-      navigate("/");
-    }
-  };
+
   const [members, setMembers] = useState([]);
   const [checkedArr, setCheckedArr] = useState([{ index: -1, attend: "" }]);
   let data = 0;
@@ -63,7 +66,6 @@ export const AttendacePost = (props: any) => {
   };
 
   useEffect(() => {
-    checkoutAble();
     get();
   }, []);
 

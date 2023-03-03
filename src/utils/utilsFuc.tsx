@@ -46,7 +46,7 @@ export const getNowWeek = () => {
   // 아래는 월별 일요일 날짜와 개수 구하는 것
   const nowDate = getDate();
   const now = new Date().getDay();
-  if (onDays.includes(now) === false) throw new Error("주일, 월요일에만 출석부 사용이 가능합니다.");
+  if (onDays.includes(now) === false) alert("토요일, 주일, 월요일에만 출석부 사용이 가능합니다.");
   const lastDate = new Date(nowDate.year, nowDate.month, 0).getDate();
   let weeksCount = 0;
   const zxczxc = [];
