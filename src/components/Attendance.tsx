@@ -9,8 +9,10 @@ import { baseUrl } from "../App";
 import { Home } from "./Home";
 import * as utils from "../utils/utilsFuc";
 import { Loading } from "./Loading";
+const canDays = [0, 1];
 
 export const AttendacePost = (props: any) => {
+  const navigate = useNavigate();
   const checkoutAble = () => {
     if (!canDays.includes(new Date().getDay())) {
       alert("토,일,월요일에만 출석부 기록 가능합니다.");
@@ -27,8 +29,6 @@ export const AttendacePost = (props: any) => {
     month: utils.getDate().month,
     date: utils.getDate().date,
   };
-  const canDays = [0, 1];
-  const navigate = useNavigate();
   // ***** 고쳐야함 유즈이펙트에서 밑에 함수 써야함
 
   const [members, setMembers] = useState([]);
