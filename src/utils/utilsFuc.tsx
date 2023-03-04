@@ -46,7 +46,7 @@ export const getNowWeek = () => {
   // 아래는 월별 일요일 날짜와 개수 구하는 것
   const nowDate = getDate();
   const now = new Date().getDay();
-  if (onDays.includes(now) === false) alert("토요일, 주일, 월요일에만 출석부 사용이 가능합니다.");
+  // if (onDays.includes(now) === false) alert("토요일, 주일, 월요일에만 출석부 사용이 가능합니다.");
   const lastDate = new Date(nowDate.year, nowDate.month, 0).getDate();
   let weeksCount = 0;
   const zxczxc = [];
@@ -85,23 +85,23 @@ export const getNowWeek = () => {
 };
 export const useFulReaderName = [
   "지훈",
-  "영은",
+  // "영은",
   "수민",
-  "진실",
-  "예은",
+  // "진실",
+  // "예은",
   "수정",
-  "주연",
-  "진희",
+  // "주연",
+  // "진희",
   "재운",
-  "동욱",
+  // "동욱",
   "혜성",
-  "정현",
-  "현승",
+  // "정현",
+  // "현승",
   "주영",
-  "상현",
-  "예람",
+  // "상현",
+  // "예람",
   "민지",
-  "세은",
+  // "세은",
 ];
 export const getFamilyCode = (name: string) => {
   if (useFulReaderName.includes(name) !== true) throw new Error("리더이름 제대로 입력 부탁함");

@@ -17,10 +17,10 @@ const pick = (arr: any) => {
 
 export const Home = (props: any) => {
   // 명언 목록 불러오기
-  const [fightingMsg, setFightingMsg] = useState("");
+  const [fightingMsg, setFightingMsg] = useState("응원 메시지를 추가해 보세요");
   const [fightingMsgAuthor, setFightingMsgAuthor] = useState("");
   const [fightingMsgLikes, setFightingMsgLikes] = useState(0);
-  const [fightingMsgId, setFightingMsgId] = useState("");
+  const [fightingMsgId, setFightingMsgId] = useState("null");
   let arrLength = 0;
   const navigate = useNavigate();
   const getMsgs = async () => {
@@ -49,9 +49,7 @@ export const Home = (props: any) => {
       setFightingMsgAuthor(msgInfo.author);
       setFightingMsgLikes(msgInfo.likes);
       setFightingMsgId(msgInfo.id);
-    } catch (err) {
-      alert(err);
-    }
+    } catch (err) {}
   };
   useEffect(() => {
     getMsgs();
@@ -70,12 +68,15 @@ export const Home = (props: any) => {
           className="fighting_msg"
           onClick={async (e) => {
             try {
+              if (fightingMsgId === "null") alert("등록된 응원메시지가 없습니다.\n메시지를 등록해보세요.");
               const id = e.currentTarget.id;
+              console.log(id);
               await axios.patch(`${baseUrl}/fighting/likes`, { id, liker: localStorage.getItem("leader") });
               setFightingMsgLikes(fightingMsgLikes + 1);
             } catch (err: any) {
               console.log(err);
-              alert(err.response.data.message);
+              if (err.response.data.message === "오늘 하루 좋아요 가능개수를 넘었습니다.\n하루 최대 10번")
+                alert(err.response.data.message);
             }
             // 좋아요 로직
           }}

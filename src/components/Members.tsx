@@ -56,9 +56,10 @@ export const Members = (props: any) => {
 
                     alert("추가 완료!");
                   } catch (err) {
+                    setLoading(false);
                     if (trangition) trangition.style.opacity = "1";
-
-                    alert(err);
+                    console.log(err);
+                    alert("으악? 알 수 없는 오류가..");
                   }
                 }
               }}
@@ -101,10 +102,12 @@ export const Members = (props: any) => {
                     setLoading(false);
 
                     alert("삭제 완료!");
-                  } catch (err) {
+                  } catch (err: any) {
+                    setTarget("");
+                    setLoading(false);
                     if (trangition) trangition.style.opacity = "1";
-
-                    alert(err);
+                    console.log(err);
+                    if (err.response.data.message === "없는애임..") alert(err.response.data.message);
                   }
                 }
               }}

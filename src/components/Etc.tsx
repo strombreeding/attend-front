@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../App";
 import { Loading } from "./Loading";
+const canDays = [0, 1, 6];
 
 export const Etc = (props: any) => {
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,10 @@ export const Etc = (props: any) => {
   const onClick = (content: string) => {
     navigate(content);
   };
+  if (!canDays.includes(new Date().getDay())) {
+    alert("토,일,월요일에만 출석부 기록이 가능합니다.");
+    navigate("/");
+  }
   const getEtc = async () => {
     const etc = await axios.get(`${baseUrl}/etc?name=${localStorage.getItem("leader")}`);
     const res = etc.data;

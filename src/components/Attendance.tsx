@@ -9,12 +9,13 @@ import { baseUrl } from "../App";
 import { Home } from "./Home";
 import * as utils from "../utils/utilsFuc";
 import { Loading } from "./Loading";
-const canDays = [0, 1];
+const canDays = [0, 1, 6];
 
 export const AttendacePost = (props: any) => {
   const navigate = useNavigate();
   const checkoutAble = () => {
     if (!canDays.includes(new Date().getDay())) {
+      alert("토,일,월요일에만 출석부 기록이 가능합니다.");
       navigate("/");
     }
   };
@@ -30,6 +31,7 @@ export const AttendacePost = (props: any) => {
   // ***** 고쳐야함 유즈이펙트에서 밑에 함수 써야함
 
   const [members, setMembers] = useState([]);
+  let counter = 0;
   const [checkedArr, setCheckedArr] = useState([{ index: -1, attend: "" }]);
   let data = 0;
   // const [data, setData] = useState(0);
@@ -130,19 +132,27 @@ export const AttendacePost = (props: any) => {
 
         <div className="attendance_list">
           {members.map((member, index) => {
-            const checked = checkedArr[index].attend;
             const attendType = [];
-            count[index].attend = checked;
-            count[index].index = checkedArr[index].index;
-            if (checked === "🟢") {
-              attendType.push("✔");
-              attendType.push("");
-            } else if (checked === "🟡") {
-              attendType.push("");
-              attendType.push("✔");
-            } else {
-              attendType.push("");
-              attendType.push("");
+            console.log(checkedArr.length, index, "췤드 에러");
+            if (checkedArr.length >= index && checkedArr[index] !== undefined) {
+              console.log(checkedArr[index]);
+              if (checkedArr[index].attend !== "") {
+                console.log("들어옴");
+                const checked = checkedArr[index].attend;
+                count[index].attend = checked;
+                count[index].index = checkedArr[index].index;
+                counter = counter + 1;
+                if (checked === "🟢") {
+                  attendType.push("✔");
+                  attendType.push("");
+                } else if (checked === "🟡") {
+                  attendType.push("");
+                  attendType.push("✔");
+                }
+              } else {
+                attendType.push("");
+                attendType.push("");
+              }
             }
             return (
               <>
@@ -231,11 +241,12 @@ export const AttendacePost = (props: any) => {
             }
           }}
         >
-          {checkedArr.length}/{count.length}
+          {counter}/{count.length}
         </h2>
         <div
           className="attendance_end"
           onClick={async () => {
+            // console.log(count);
             const sendData = cutingAttend(count);
             const section = document.getElementById("section");
             const article = document.getElementById("article");
@@ -257,6 +268,7 @@ export const AttendacePost = (props: any) => {
                     if (trangition) {
                       trangition.style.opacity = "1";
                     }
+                    navigate("/");
                   } catch (err) {
                     if (trangition) {
                       trangition.style.opacity = "1";
