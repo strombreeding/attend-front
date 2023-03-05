@@ -117,17 +117,19 @@ export const AttendacePost = (props: any) => {
       >
         <p>🟢:출석 🟡:예배 </p>
         <div id="attend_info">
+          <div>
+            <small>1. 온 사람 체크</small>
+            <small>2. 중앙 하단 n/N 또는 '기록' 클릭</small>
+            <small>3. 내역 확인</small>
+            <small>4. '기록' 클릭</small>
+            <small>5. 기록 완료</small>
+            <small>* 필요시 좌측하단 '초기화'</small>
+          </div>
+          <br />
           <h4>
             {nowDate.year - 2000}년 {nowDate.month}월
           </h4>
           <h2>{nowDate.week}주차</h2>
-          <div>
-            <small>1. 온 사람 체크</small>
-            <small>1. 우측 하단 '기록' 클릭</small>
-            <small>1. 내역 확인</small>
-            <small>1. '기록' 다시 클릭</small>
-            <small>1. 대기</small>
-          </div>
         </div>
 
         <div className="attendance_list">
