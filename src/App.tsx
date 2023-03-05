@@ -11,8 +11,8 @@ import { EumPw } from "./components/EumPw";
 import { Fighting } from "./components/Fighting";
 import useCookies from "react-cookie/cjs/useCookies";
 
-export const baseUrl = "http://localhost:3001";
-// export const baseUrl = "http://34.168.170.240/api";
+// export const baseUrl = "http://localhost:3001";
+export const baseUrl = "http://34.168.170.240/api";
 function App() {
   const loggedIn = localStorage.getItem("logged") === "1" ? true : false;
   const [logged, setLogged] = useState(loggedIn);
