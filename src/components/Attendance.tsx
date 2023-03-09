@@ -8,7 +8,7 @@ import { cutingAttend } from "../utils/utilsFuc";
 import { baseUrl } from "../App";
 import * as utils from "../utils/utilsFuc";
 import { Loading } from "./Loading";
-const canDays = [0, 1, 2, 5];
+const canDays = [0, 1, 2];
 
 export const AttendacePost = (props: any) => {
   const navigate = useNavigate();
