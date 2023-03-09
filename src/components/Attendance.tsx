@@ -6,16 +6,15 @@ import { arrType } from "../types/types";
 import { useNavigate } from "react-router-dom";
 import { cutingAttend } from "../utils/utilsFuc";
 import { baseUrl } from "../App";
-import { Home } from "./Home";
 import * as utils from "../utils/utilsFuc";
 import { Loading } from "./Loading";
-const canDays = [0, 1, 6];
+const canDays = [0, 1, 2, 5];
 
 export const AttendacePost = (props: any) => {
   const navigate = useNavigate();
   const checkoutAble = () => {
     if (!canDays.includes(new Date().getDay())) {
-      alert("토,일,월요일에만 출석부 기록이 가능합니다.");
+      alert("일~화요일에만 이용 가능");
       navigate("/");
     }
   };
@@ -28,14 +27,12 @@ export const AttendacePost = (props: any) => {
     month: utils.getDate().month,
     date: utils.getDate().date,
   };
-  // ***** 고쳐야함 유즈이펙트에서 밑에 함수 써야함
 
+  const [counter, setCounter] = useState(0);
   const [members, setMembers] = useState([]);
-  let counter = 0;
-  const [checkedArr, setCheckedArr] = useState([{ index: -1, attend: "" }]);
-  let data = 0;
-  // const [data, setData] = useState(0);
-  const count: arrType[] = [];
+  const [checkedArr, setCheckedArr] = useState([{ index: -1, type: { attend: "", pray: "" } }]);
+
+  const [count, setCount] = useState([{ index: -1, type: { attend: "", pray: "" } }]);
   const get = () => {
     const fetch = axios
       .get(`${baseUrl}/members?name=${localStorage.getItem("leader")}`)
@@ -43,18 +40,30 @@ export const AttendacePost = (props: any) => {
         setMembers(res.data.familyInfo.members);
 
         if (res.data.attendanceInfo !== null) {
-          const pushArr: Array<{ index: number; attend: string }> = [];
-
+          const pushArr: Array<{ index: number; type: { attend: string; pray: string } }> = [];
+          const pushCount: arrType[] = [];
+          let saveCounter = 0;
           res.data.attendanceInfo.map((member: any, index: any) => {
-            const checked = ["🟢", "🟡"];
+            const saveForCount = { attend: "", pray: "" };
+            pushArr.push({ index, type: { attend: member[0], pray: member[1] } });
 
-            if (checked.includes(member[0])) {
-              pushArr.push({ index: index, attend: member[0] });
-            } else {
-              pushArr.push({ index: index, attend: "" });
+            if (member[0] === "TRUE") {
+              saveForCount.attend = "🟢";
             }
+            if (member[1] === "TRUE") {
+              saveForCount.pray = "🟡";
+            }
+            if (member[0] !== "FALSE" && member[1] !== "FALSE") {
+              ++saveCounter;
+            } else if (member[0] === "TRUE") {
+              ++saveCounter;
+            } else if (member[1] === "TRUE") {
+              ++saveCounter;
+            }
+            pushCount.push({ index, type: saveForCount });
           });
-
+          setCounter(saveCounter);
+          setCount(pushCount);
           setCheckedArr(pushArr);
           return;
         }
@@ -70,14 +79,23 @@ export const AttendacePost = (props: any) => {
 
     get();
   }, []);
-
   const resetCount = () => {
     for (let i = 0; i < count.length; i++) {
-      count[i].index = -1;
-      count[i].attend = "";
+      const attend = document.getElementById(`${i}🟢`);
+      const pray = document.getElementById(`${i}🟡`);
+      if (attend && pray) {
+        attend.textContent = "";
+        pray.textContent = "";
+      }
+      count[i].index = i;
+      count[i].type.attend = "";
+      count[i].type.pray = "";
+      checkedArr[i].index = i;
+      checkedArr[i].type.attend = "FALSE";
+      checkedArr[i].type.pray = "FALSE";
+      setCounter(0);
     }
   };
-  console.log(data);
   const resetSection = () => {
     const a = document.getElementById("section");
     const b = document.getElementById("article");
@@ -89,15 +107,7 @@ export const AttendacePost = (props: any) => {
       a.style.display = "none";
     }
   };
-  const editCount = (a: any[]) => {
-    const b = document.getElementById("checkCount");
-    if (b) {
-      b.textContent = `${a.length}/${count.length}`;
-    }
-  };
-  for (let i = 0; i < members.length; i++) {
-    count.push({ index: -1, attend: "" });
-  }
+
   return (
     <>
       <Header setLogged={props.setLogged} name={props.leaderName} />
@@ -115,45 +125,33 @@ export const AttendacePost = (props: any) => {
           }
         }}
       >
-        <p>🟢:출석 🟡:예배 </p>
         <div id="attend_info">
           <div>
+            <h3>기록 방법~</h3>
+
             <small>1. 온 사람 체크</small>
             <small>2. 중앙 하단 n/N 또는 '기록' 클릭</small>
             <small>3. 내역 확인</small>
             <small>4. '기록' 클릭</small>
-            <small>5. 기록 완료</small>
-            <small>* 필요시 좌측하단 '초기화'</small>
+            <small>*초기화: 전부 체크해제</small>
           </div>
           <br />
           <h4>
             {nowDate.year - 2000}년 {nowDate.month}월
           </h4>
           <h2>{nowDate.week}주차</h2>
+          <p>🟢:가족모임 🟡:예배 🟣:두 항목 클릭</p>
         </div>
 
         <div className="attendance_list">
           {members.map((member, index) => {
-            const attendType = [];
-            console.log(checkedArr.length, index, "췤드 에러");
+            const attendType = ["", ""];
             if (checkedArr.length >= index && checkedArr[index] !== undefined) {
-              console.log(checkedArr[index]);
-              if (checkedArr[index].attend !== "") {
-                console.log("들어옴");
-                const checked = checkedArr[index].attend;
-                count[index].attend = checked;
-                count[index].index = checkedArr[index].index;
-                counter = counter + 1;
-                if (checked === "🟢") {
-                  attendType.push("✔");
-                  attendType.push("");
-                } else if (checked === "🟡") {
-                  attendType.push("");
-                  attendType.push("✔");
-                }
-              } else {
-                attendType.push("");
-                attendType.push("");
+              if (checkedArr[index].type.attend === "TRUE") {
+                attendType[0] = "✔";
+              }
+              if (checkedArr[index].type.pray === "TRUE") {
+                attendType[1] = "✔";
               }
             }
             return (
@@ -165,37 +163,88 @@ export const AttendacePost = (props: any) => {
                     className="attend"
                     onClick={(e) => {
                       count[index].index = index;
-                      count[index].attend = "🟢";
-                      e.currentTarget.textContent = "✔";
-                      const otherCheck = document.getElementById(`${index}🟡`);
-                      if (otherCheck) {
-                        otherCheck.textContent = "";
+                      if (e.currentTarget.textContent === "✔") {
+                        e.currentTarget.textContent = "";
+                        count[index].type.attend = "";
+                        checkedArr[index].type.attend = "FALSE";
+                        if (checkedArr[index].type.pray === "FALSE") {
+                          setCounter(counter - 1);
+                        }
+                      } else {
+                        count[index].type.attend = "🟢";
+                        checkedArr[index].type.attend = "TRUE";
+                        e.currentTarget.textContent = "✔";
+                        if (checkedArr[index].type.pray === "FALSE") {
+                          setCounter(counter + 1);
+                        }
                       }
-                      const a = cutingAttend(count);
-                      editCount(a);
+
                       resetSection();
                     }}
                   >
                     {attendType[0]}
                   </button>
+
                   <button
                     id={String(index + "🟡")}
                     className="pray"
                     onClick={(e) => {
                       count[index].index = index;
-                      count[index].attend = "🟡";
-                      e.currentTarget.textContent = "✔";
-                      const otherCheck = document.getElementById(`${index}🟢`);
-                      if (otherCheck) {
-                        otherCheck.textContent = "";
+                      if (e.currentTarget.textContent === "✔") {
+                        e.currentTarget.textContent = "";
+                        count[index].type.pray = "";
+                        checkedArr[index].type.pray = "FALSE";
+                        if (checkedArr[index].type.attend === "FALSE") {
+                          setCounter(counter - 1);
+                        }
+                      } else {
+                        count[index].type.pray = "🟡";
+                        checkedArr[index].type.pray = "TRUE";
+                        e.currentTarget.textContent = "✔";
+                        if (checkedArr[index].type.attend === "FALSE") {
+                          setCounter(counter + 1);
+                        }
                       }
-                      const a = cutingAttend(count);
-                      editCount(a);
+
                       resetSection();
                     }}
                   >
                     {attendType[1]}
                   </button>
+                  <button
+                    id={String(index + "🟣")}
+                    className="select_all"
+                    onClick={(e) => {
+                      count[index].index = index;
+                      if (checkedArr[index].type.attend === "TRUE" && checkedArr[index].type.pray === "FALSE") {
+                        count[index].type.pray = "";
+                        checkedArr[index].type.pray = "FALSE";
+                        count[index].type.attend = "";
+                        checkedArr[index].type.attend = "FALSE";
+                        setCounter(counter - 1);
+                      } else if (checkedArr[index].type.attend === "FALSE" && checkedArr[index].type.pray === "TRUE") {
+                        count[index].type.pray = "";
+                        checkedArr[index].type.pray = "FALSE";
+                        count[index].type.attend = "";
+                        checkedArr[index].type.attend = "FALSE";
+                        setCounter(counter - 1);
+                      } else if (checkedArr[index].type.attend === "TRUE" && checkedArr[index].type.pray === "TRUE") {
+                        count[index].type.pray = "";
+                        checkedArr[index].type.pray = "FALSE";
+                        count[index].type.attend = "";
+                        checkedArr[index].type.attend = "FALSE";
+                        setCounter(counter - 1);
+                      } else {
+                        count[index].type.pray = "🟡";
+                        checkedArr[index].type.pray = "TRUE";
+                        count[index].type.attend = "🟢";
+                        checkedArr[index].type.attend = "TRUE";
+                        setCounter(counter + 1);
+                      }
+
+                      resetSection();
+                    }}
+                  ></button>
                 </div>
               </>
             );
@@ -204,16 +253,14 @@ export const AttendacePost = (props: any) => {
       </div>
       <article id="article" style={{ display: "none" }}>
         <h3>내역 확인후, 기록버튼 클릭</h3>
+        <p>🟢:가족모임 🟡:예배 </p>
+
         <section id="section"></section>
       </article>
       <div className="btns">
         <div
           className="reset"
           onClick={() => {
-            const a = document.getElementById("checkCount");
-            if (a) {
-              a.textContent = `0/${count.length}`;
-            }
             resetSection();
             resetCount();
           }}
@@ -228,9 +275,12 @@ export const AttendacePost = (props: any) => {
             const article = document.getElementById("article");
             if (section && article) {
               if (article.style.display === "none" && section.style.display === "none") {
-                sendData.map((source) => {
+                sendData.map((source, i) => {
                   const div = document.createElement("div");
-                  div.textContent = `${members[source.index]} : ${source.attend}`;
+                  div.textContent = `${members[source.index]} : ${source.type.attend}${source.type.pray}`;
+                  if (source.index === -1) {
+                    div.textContent = `${members[i]} : `;
+                  }
                   section?.appendChild(div);
                 });
                 section.style.display = "grid";
@@ -248,8 +298,8 @@ export const AttendacePost = (props: any) => {
         <div
           className="attendance_end"
           onClick={async () => {
-            // console.log(count);
-            const sendData = cutingAttend(count);
+            const sendData = cutingAttend(checkedArr);
+            const checkedList = cutingAttend(count);
             const section = document.getElementById("section");
             const article = document.getElementById("article");
             if (section && article) {
@@ -260,10 +310,9 @@ export const AttendacePost = (props: any) => {
                     trangition.style.opacity = "0.3";
                   }
                   try {
-                    if (sendData.length === 0) throw new Error("아무도 출석 안함?");
+                    if (counter === 0) throw new Error("아무도 출석 안함?");
                     setLoading(true);
                     await axios.post(`${baseUrl}/attendance`, { name: localStorage.getItem("leader"), list: sendData });
-                    await axios.patch(`${baseUrl}/attendance`);
 
                     setLoading(false);
                     alert("기록 완료");
@@ -279,9 +328,12 @@ export const AttendacePost = (props: any) => {
                   }
                   break;
                 default:
-                  sendData.map((source) => {
+                  checkedList.map((source, i) => {
                     const div = document.createElement("div");
-                    div.textContent = `${members[source.index]} : ${source.attend}`;
+                    div.textContent = `${members[source.index]} : ${source.type.attend}${source.type.pray}`;
+                    if (source.index === -1) {
+                      div.textContent = `${members[i]} : `;
+                    }
                     section?.appendChild(div);
                   });
                   section.style.display = "grid";

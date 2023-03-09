@@ -103,15 +103,22 @@
 .attend {
   background-color: #00d26a;
   border-radius: 50%;
-  height: 100px;
-  width: 100px;
+  height: 75px;
+  width: 75px;
   margin: 10px 10px;
 }
 .pray {
   background-color: #fcd53f;
   border-radius: 50%;
-  height: 100px;
-  width: 100px;
+  height: 75px;
+  width: 75px;
+  margin: 10px 10px;
+}
+.select_all {
+  background-color: #8d65c5;
+  border-radius: 50%;
+  height: 75px;
+  width: 75px;
   margin: 10px 10px;
 }
 .not_attend {

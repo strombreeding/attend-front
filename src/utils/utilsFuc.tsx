@@ -24,9 +24,12 @@ export const cutingAttend = (arr: arrType[]) => {
   const passIcon = ["🔴"];
   const newArr = [];
   for (let i = 0; i < arr.length; i++) {
-    if (!passIcon.includes(arr[i].attend) && arr[i].index !== -1) {
+    if (true) {
       newArr.push(arr[i]);
     }
+    // if (!passIcon.includes(arr[i].attend) && arr[i].index !== -1) {
+    //   newArr.push(arr[i]);
+    // }
   }
   return newArr;
 };
@@ -84,27 +87,27 @@ export const getNowWeek = () => {
   return weeksCount;
 };
 export const useFulReaderName = [
-  "지훈",
+  "[지훈:영은:One]",
   // "영은",
-  "수민",
+  "[수민:진실:예은]",
   // "진실",
   // "예은",
-  "수정",
+  "[수정:주연]",
   // "주연",
+  "[재운:진희:동욱]",
   // "진희",
-  "재운",
   // "동욱",
-  "혜성",
+  "[혜성:정현:현승]",
   // "정현",
   // "현승",
-  "주영",
+  "[주영:상현:예람]",
   // "상현",
   // "예람",
-  "민지",
+  "[민지:세은]",
   // "세은",
 ];
 export const getFamilyCode = (name: string) => {
-  if (useFulReaderName.includes(name) !== true) throw new Error("리더이름 제대로 입력 부탁함");
+  if (name === "none" || name === "") throw new Error("잘 골라보세요");
   let code = null;
   switch (name) {
     case "지훈":

@@ -7,5 +7,12 @@ export type NowDate = {
 
 export type arrType = {
   index: number;
-  attend: string;
+  type: {
+    attend: string;
+    pray: string;
+  };
 };
+// export type arrType = {
+//   index: number;
+//   attend: string;
+// };

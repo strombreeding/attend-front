@@ -43,3 +43,16 @@
     opacity: 1;
   }
 }
+#reboot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  font-size: larger;
+  font-weight: 900;
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, -50%);
+}

@@ -6,6 +6,48 @@
   top: 25%;
   transform: translate(-50%, -50%);
 }
+#grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  /* padding-bottom: 50px;
+  padding-top: 30px; */
+  margin-top: 20px;
+}
+#password_input {
+  background-color: #d0e3f3;
+  border: 0;
+  position: absolute;
+  left: 50%;
+  top: -160px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+#password_text {
+  background-color: #d0e3f3;
+  border: 0;
+  position: absolute;
+  left: 50%;
+  top: -160px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+#grid button {
+  width: 56px;
+  height: 56px;
+  background-color: #a2c4c9;
+  padding: 5px;
+  margin: 5px 5px;
+  font-size: large;
+  font-weight: 700;
+}
+.login p {
+  font-weight: 900;
+  position: fixed;
+  left: 50%;
+  top: 33%;
+  transform: translate(-50%, -50%);
+}
 .login div {
   color: black;
   font-size: large;
@@ -15,23 +57,26 @@
   align-items: center;
   position: fixed;
   left: 50%;
-  top: 60%;
+  top: 61%;
   transform: translate(-50%, -50%);
 }
 
 .login select {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
   text-align: center;
-  width: 120px;
+  /* text-align-last: center; */
+  width: 240px;
   height: 50px;
   border: 0.1px solid gray;
   margin: 5px 0;
   color: gray;
   font-size: large;
   font-weight: 900;
+  -ms-text-align: center;
+  -moz-text-align: center;
 }
 .login button {
   color: black;
