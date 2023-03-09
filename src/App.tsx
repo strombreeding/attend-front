@@ -12,8 +12,8 @@ import { Fighting } from "./components/Fighting";
 import useCookies from "react-cookie/cjs/useCookies";
 import axios from "axios";
 
-export const baseUrl = "http://localhost:3001";
-// export const baseUrl = "http://34.168.170.240/api";
+// export const baseUrl = "http://localhost:3001";
+export const baseUrl = "http://34.168.170.240/api";
 function App() {
   const version = async () => {
     const compareVersion = await (await axios.get(`${baseUrl}/version`)).data;
