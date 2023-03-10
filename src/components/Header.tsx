@@ -26,7 +26,11 @@ export const Header = (props: any) => {
       </a>
       <div
         onClick={() => {
-          localStorage.clear();
+          localStorage.removeItem("logged");
+          localStorage.removeItem("leader");
+          localStorage.removeItem("code");
+          localStorage.removeItem("date");
+          localStorage.removeItem("checkArr");
           props.setLogged(false);
           window.location.href = "/";
         }}

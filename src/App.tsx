@@ -15,22 +15,9 @@ import axios from "axios";
 // export const baseUrl = "http://localhost:3001";
 export const baseUrl = "http://34.168.170.240/api";
 function App() {
-  const version = async () => {
-    const compareVersion = await (await axios.get(`${baseUrl}/version`)).data;
-    console.log(compareVersion);
-    const nowVersion = localStorage.getItem("version");
-    console.log();
-    if (nowVersion !== compareVersion) {
-      localStorage.setItem("version", compareVersion);
-      document.getElementsByTagName("body")[0].innerHTML = `
-        <h1 id = "reboot">재 실행 해주세요.</h1>
-      `;
-      alert("버전 업데이트가 필요합니다. 재실행 해주세요.");
-    }
-  };
-  useEffect(() => {
-    version();
-  }, []);
+  // useEffect(() => {
+  //   version();
+  // }, []);
   const loggedIn = localStorage.getItem("logged") === "1" ? true : false;
   const [logged, setLogged] = useState(loggedIn);
   const [leaderName, setLeaderName] = useState(localStorage.getItem("leader"));
