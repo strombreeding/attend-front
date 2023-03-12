@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../App";
 import { Loading } from "./Loading";
-const canDays = [0, 1, 2];
+const canDays = [0, 1];
 
 export const Etc = (props: any) => {
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ export const Etc = (props: any) => {
   };
   const checkoutAble = () => {
     if (!canDays.includes(new Date().getDay())) {
-      alert("일~화요일에만 이용 가능");
+      alert("일~월요일에만 이용 가능");
       navigate("/");
     }
   };

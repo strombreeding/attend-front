@@ -8,13 +8,13 @@ import { cutingAttend } from "../utils/utilsFuc";
 import { baseUrl } from "../App";
 import * as utils from "../utils/utilsFuc";
 import { Loading } from "./Loading";
-const canDays = [0, 1, 2];
+const canDays = [0, 1];
 
 export const AttendacePost = (props: any) => {
   const navigate = useNavigate();
   const checkoutAble = () => {
     if (!canDays.includes(new Date().getDay())) {
-      alert("일~화요일에만 이용 가능");
+      alert("일~월요일에만 이용 가능");
       navigate("/");
     }
   };
@@ -43,6 +43,7 @@ export const AttendacePost = (props: any) => {
           const pushArr: Array<{ index: number; type: { attend: string; pray: string } }> = [];
           const pushCount: arrType[] = [];
           let saveCounter = 0;
+          console.log(res.data.attendanceInfo);
           res.data.attendanceInfo.map((member: any, index: any) => {
             const saveForCount = { attend: "", pray: "" };
             pushArr.push({ index, type: { attend: member[0], pray: member[1] } });

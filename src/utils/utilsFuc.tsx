@@ -1,5 +1,5 @@
 import { arrType } from "../types/types";
-const onDays = [0, 1, 6];
+const onDays = [0, 1];
 
 export const makeTime = (currentTime: number) => {
   const defaultTime = Math.round((Date.now() - currentTime) / 1000);
@@ -74,7 +74,7 @@ export const getNowWeek = () => {
     }
   }
   for (let i = 0; i < zxczxc.length; i++) {
-    if (zxczxc[i].includes(5)) {
+    if (zxczxc[i].includes(nowDate.date)) {
       weeksCount = i + 1;
       break;
     }

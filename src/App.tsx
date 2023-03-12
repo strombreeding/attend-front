@@ -12,8 +12,8 @@ import { Fighting } from "./components/Fighting";
 import useCookies from "react-cookie/cjs/useCookies";
 import axios from "axios";
 
-// export const baseUrl = "http://localhost:3001";
-export const baseUrl = "http://34.168.170.240/api";
+export const baseUrl = "http://localhost:3001";
+// export const baseUrl = "http://34.168.170.240/api";
 function App() {
   // useEffect(() => {
   //   version();
@@ -22,10 +22,57 @@ function App() {
   const [logged, setLogged] = useState(loggedIn);
   const [leaderName, setLeaderName] = useState(localStorage.getItem("leader"));
   const [cookie, setCookie, removeCookie] = useCookies();
-  console.log(cookie);
-  console.log("나는 록드", logged);
+  const test = async () => {
+    const queryCode = `
+          query{
+            getAllMembers{
+              nick:nickname
+            }
+          }
+		`;
+    const nick = "nick";
+    const pw = "pw";
+    const mutationCode = `
+          mutation{
+            addMember(addInput:{
+              nickname:"${nick}"
+              password:"${pw}"
+            })
+          }
+    `;
+    const mutation = {
+      url: "https://atata.jinytree.shop/graphql",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: JSON.stringify({
+        query: mutationCode,
+      }),
+    };
+    // const query = {
+    //   url: "https://atata.jinytree.shop/members/all",
+    //   method: "GET",
+    //   headers: { "Content-Type": "application/json" },
+    // };
+    const query = {
+      url: "https://atata.jinytree.shop/graphql",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: JSON.stringify({
+        query: queryCode,
+      }),
+    };
+    const zz = await axios(mutation);
+    console.log(zz);
+  };
   return (
     <div className="App">
+      <button
+        onClick={() => {
+          test();
+        }}
+      >
+        ㅎㅇ
+      </button>
       {logged === true ? (
         <>
           <BrowserRouter>
