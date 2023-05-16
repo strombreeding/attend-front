@@ -67,24 +67,6 @@ function App() {
   // };
   return (
     <div className="App">
-      <button
-        onClick={async () => {
-          const query = qs.stringify(
-            {
-              field: ["description", "name"],
-              populate: ["categories"],
-            },
-            {
-              encodeValuesOnly: true,
-            }
-          );
-          console.log(`http://localhost:1337/api/restaurants?${query}`);
-          const a = await axios.get(`http://localhost:1337/api/restaurants?${query}`);
-          console.log(a);
-        }}
-      >
-        ㅎㅇ
-      </button>
       {logged === true ? (
         <>
           <BrowserRouter>

@@ -18,7 +18,7 @@ export const Etc = (props: any) => {
   };
   const checkoutAble = () => {
     if (!canDays.includes(new Date().getDay())) {
-      alert("일~월요일에만 이용 가능");
+      alert("일~목요일에만 이용 가능");
       navigate("/");
     }
   };
