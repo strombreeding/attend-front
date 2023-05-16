@@ -11,6 +11,7 @@ import { EumPw } from "./components/EumPw";
 import { Fighting } from "./components/Fighting";
 import useCookies from "react-cookie/cjs/useCookies";
 import axios from "axios";
+import qs from "qs";
 
 // export const baseUrl = "http://localhost:3001";
 export const baseUrl = "http://34.168.170.240/api";
@@ -66,6 +67,24 @@ function App() {
   // };
   return (
     <div className="App">
+      <button
+        onClick={async () => {
+          const query = qs.stringify(
+            {
+              field: ["description", "name"],
+              populate: ["categories"],
+            },
+            {
+              encodeValuesOnly: true,
+            }
+          );
+          console.log(`http://localhost:1337/api/restaurants?${query}`);
+          const a = await axios.get(`http://localhost:1337/api/restaurants?${query}`);
+          console.log(a);
+        }}
+      >
+        ㅎㅇ
+      </button>
       {logged === true ? (
         <>
           <BrowserRouter>

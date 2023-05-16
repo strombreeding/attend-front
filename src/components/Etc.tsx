@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../App";
 import { Loading } from "./Loading";
-const canDays = [0, 1];
+const canDays = [0, 1, 2, 3, 4];
 
 export const Etc = (props: any) => {
   const [loading, setLoading] = useState(false);
