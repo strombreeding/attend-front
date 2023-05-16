@@ -8,13 +8,13 @@ import { cutingAttend } from "../utils/utilsFuc";
 import { baseUrl } from "../App";
 import * as utils from "../utils/utilsFuc";
 import { Loading } from "./Loading";
-const canDays = [0, 1];
+const canDays = [0, 1, 2, 3, 4];
 
 export const AttendacePost = (props: any) => {
   const navigate = useNavigate();
   const checkoutAble = () => {
     if (!canDays.includes(new Date().getDay())) {
-      alert("일~월요일에만 이용 가능");
+      alert("일~목요일에만 이용 가능");
       navigate("/");
     }
   };
