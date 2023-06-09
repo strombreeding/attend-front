@@ -28,22 +28,25 @@ function App() {
     try {
       const res = await axios.get(`${baseUrl}/version`);
       console.log(res);
-      const serverVersion = res;
+      const serverVersion = res.data;
+      if (localStorage.getItem("version") === null) {
+        localStorage.setItem("version", serverVersion);
+      }
+      const clineVersion = localStorage.getItem("version");
+
+      if (serverVersion !== clineVersion) {
+        updateServiceWorker();
+        resetHtml();
+      }
     } catch (error) {
       console.log(error);
     }
   };
-  const modal = async () => {
-    const compareVersion = await (await axios.get(`${baseUrl}/version`)).data;
-    console.log(compareVersion, "ㅎㅇㅎㅇ");
-    const nowVersion = localStorage.getItem("version");
-    if (nowVersion !== compareVersion) {
-      localStorage.setItem("version", compareVersion);
-      document.getElementsByTagName("body")[0].innerHTML = `
+  const resetHtml = async () => {
+    document.getElementsByTagName("body")[0].innerHTML = `
         <h1 id = "reboot">재 실행 해주세요.</h1>
       `;
-      alert("버전 업데이트가 필요합니다. 재 실행 해주세요.");
-    }
+    alert("버전 업데이트가 필요합니다. 재 실행 해주세요.");
   };
   const updateServiceWorker = () => {
     if ("serviceWorker" in navigator) {
