@@ -14,7 +14,7 @@ import axios from "axios";
 import qs from "qs";
 
 // export const baseUrl = "http://localhost:3001";
-export const baseUrl = "http://34.168.170.240/api";
+export const baseUrl = "https://jinytree.store/api";
 function App() {
   // useEffect(() => {
   //   version();
