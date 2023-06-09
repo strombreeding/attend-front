@@ -5,19 +5,8 @@ import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
-const version = async () => {
-  const compareVersion = await (await axios.get(`${baseUrl}/version`)).data;
-  console.log(compareVersion, "ㅎㅇㅎㅇ");
-  const nowVersion = localStorage.getItem("version");
-  if (nowVersion !== compareVersion) {
-    localStorage.setItem("version", compareVersion);
-    document.getElementsByTagName("body")[0].innerHTML = `
-        <h1 id = "reboot">재 실행 해주세요.</h1>
-      `;
-    alert("버전 업데이트가 필요합니다. 재 실행 해주세요.");
-  }
-};
-version();
+
+// version();
 root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
