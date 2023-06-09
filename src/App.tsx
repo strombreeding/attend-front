@@ -1,6 +1,5 @@
 import "./App.css";
-import react, { useState, useContext, useEffect } from "react";
-import { Header } from "./components/Header";
+import { useState, useEffect } from "react";
 import { Login } from "./components/Login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AttendacePost } from "./components/Attendance";
@@ -10,61 +9,41 @@ import { Members } from "./components/Members";
 import { EumPw } from "./components/EumPw";
 import { Fighting } from "./components/Fighting";
 import useCookies from "react-cookie/cjs/useCookies";
+import { registerServiceWorker } from "./sw";
 import axios from "axios";
-import qs from "qs";
 
 // export const baseUrl = "http://localhost:3001";
 export const baseUrl = "https://jinytree.store/api";
 function App() {
-  // useEffect(() => {
-  //   version();
-  // }, []);
   const loggedIn = localStorage.getItem("logged") === "1" ? true : false;
   const [logged, setLogged] = useState(loggedIn);
   const [leaderName, setLeaderName] = useState(localStorage.getItem("leader"));
-  const [cookie, setCookie, removeCookie] = useCookies();
-  // const test = async () => {
-  //   const queryCode = `
-  //         query{
-  //           getAllMembers{
-  //             nick:nickname
-  //           }
-  //         }
-  // 	`;
-  //   const nick = "nick";
-  //   const pw = "pw";
-  //   const mutationCode = `
-  //         mutation{
-  //           addMember(addInput:{
-  //             nickname:"${nick}"
-  //             password:"${pw}"
-  //           })
-  //         }
-  //   `;
-  //   const mutation = {
-  //     url: "https://atata.jinytree.shop/graphql",
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     data: JSON.stringify({
-  //       query: mutationCode,
-  //     }),
-  //   };
-  //   // const query = {
-  //   //   url: "https://atata.jinytree.shop/members/all",
-  //   //   method: "GET",
-  //   //   headers: { "Content-Type": "application/json" },
-  //   // };
-  //   const query = {
-  //     url: "https://atata.jinytree.shop/graphql",
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     data: JSON.stringify({
-  //       query: queryCode,
-  //     }),
-  //   };
-  //   const zz = await axios(mutation);
-  //   console.log(zz);
-  // };
+
+  // useEffect(() => {
+  //   registerServiceWorker();
+  // }, []);
+
+  const checkAppUpdate = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/version`);
+      console.log(res);
+      const serverVersion = res;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateServiceWorker = () => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.getRegistration().then((regist) => {
+        if (regist && regist.waiting) {
+          regist.waiting.postMessage({
+            type: "SKIP_WAITING",
+          });
+        }
+      });
+    }
+  };
+
   return (
     <div className="App">
       {logged === true ? (
