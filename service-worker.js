@@ -1,7 +1,7 @@
 // service-worker.ts
 
 import axios from "axios";
-import { baseUrl } from "./App";
+import { baseUrl } from "./src/App";
 const getVersion = async () => {
   const res = await axios.get(`${baseUrl}/version`);
   return res.data;
@@ -73,5 +73,3 @@ async function checkVersion() {
   }
   return;
 }
-
-self.skip;
