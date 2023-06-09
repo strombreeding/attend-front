@@ -21,44 +21,51 @@ function App() {
 
   useEffect(() => {
     registerServiceWorker();
-    checkAppUpdate();
+    // checkAppUpdate();
+    checkVersion();
   }, []);
 
-  const checkAppUpdate = async () => {
-    try {
-      const res = await axios.get(`${baseUrl}/version`);
-      console.log(res);
-      const serverVersion = res.data;
-      if (localStorage.getItem("version") === null) {
-        localStorage.setItem("version", serverVersion);
-      }
-      const clineVersion = localStorage.getItem("version");
+  const checkVersion = async () => {
+    navigator.serviceWorker.controller?.postMessage({
+      type: "CHECK_VERSION",
+    });
+  };
 
-      if (serverVersion !== clineVersion) {
-        updateServiceWorker();
-        resetHtml();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const resetHtml = async () => {
-    document.getElementsByTagName("body")[0].innerHTML = `
-        <h1 id = "reboot">재 실행 해주세요.</h1>
-      `;
-    alert("버전 업데이트가 필요합니다. 재 실행 해주세요.");
-  };
-  const updateServiceWorker = () => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.getRegistration().then((regist) => {
-        if (regist && regist.waiting) {
-          regist.waiting.postMessage({
-            type: "SKIP_WAITING",
-          });
-        }
-      });
-    }
-  };
+  // const checkAppUpdate = async () => {
+  //   try {
+  //     const res = await axios.get(`${baseUrl}/version`);
+  //     console.log(res);
+  //     const serverVersion = res.data;
+  //     if (localStorage.getItem("version") === null) {
+  //       localStorage.setItem("version", serverVersion);
+  //     }
+  //     const clineVersion = localStorage.getItem("version");
+
+  //     if (serverVersion !== clineVersion) {
+  //       updateServiceWorker();
+  //       resetHtml();
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // const resetHtml = async () => {
+  //   document.getElementsByTagName("body")[0].innerHTML = `
+  //       <h1 id = "reboot">재 실행 해주세요.</h1>
+  //     `;
+  //   alert("버전 업데이트가 필요합니다. 재 실행 해주세요.");
+  // };
+  // const updateServiceWorker = () => {
+  //   if ("serviceWorker" in navigator) {
+  //     navigator.serviceWorker.getRegistration().then((regist) => {
+  //       if (regist && regist.waiting) {
+  //         regist.waiting.postMessage({
+  //           type: "SKIP_WAITING",
+  //         });
+  //       }
+  //     });
+  //   }
+  // };
 
   return (
     <div className="App">
