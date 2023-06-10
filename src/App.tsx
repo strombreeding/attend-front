@@ -9,7 +9,8 @@ import { Members } from "./components/Members";
 import { EumPw } from "./components/EumPw";
 import { Fighting } from "./components/Fighting";
 import useCookies from "react-cookie/cjs/useCookies";
-import { registerServiceWorker } from "./sw";
+// import { registerServiceWorker } from "../sw";
+import { register } from "./serviceWorkerRegistration";
 import axios from "axios";
 
 // export const baseUrl = "http://localhost:3001";
@@ -20,7 +21,7 @@ function App() {
   const [leaderName, setLeaderName] = useState(localStorage.getItem("leader"));
 
   useEffect(() => {
-    registerServiceWorker();
+    register();
     checkVersion();
     // checkAppUpdate();
   }, []);
